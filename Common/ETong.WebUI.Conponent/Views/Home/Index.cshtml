@@ -1,0 +1,34 @@
+﻿@using MvcContrib
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Index</title>
+
+    <link href="@Url.Resource("Static.Css.test.css")" rel="stylesheet" />
+    <script src="@Url.Resource("Static.Js.test.js")"></script>
+    
+    <link href="/Conponent/resource/Static.Css.test.css" rel="stylesheet" />
+    <script src="/Conponent/resource/Static.Js.test.js"></script>
+</head>
+<body>
+        @Html.Partial("../Partial/_PartialPage1")
+        @Html.Partial("/Areas/Conponent/Views/Partial/_PartialPage1.cshtml")
+    <div id="test">
+        <h2>@ViewBag.Message</h2>
+    </div>
+    <div>
+        <img src="@Url.Resource("Static.Img.test.jpg")" />
+        <img src="/Conponent/resource/Static.Img.test.jpg" />
+    </div>
+
+
+</body>
+</html>
+<script>
+
+</script>

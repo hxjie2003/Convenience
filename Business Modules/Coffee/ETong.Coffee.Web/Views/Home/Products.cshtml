@@ -1,0 +1,246 @@
+﻿@{
+    var resourceSiteURL = System.Configuration.ConfigurationManager.AppSettings["ResDomain"];
+}
+<div class="mainframe">
+    <form id="submitForm" action="" method="post">
+        <h1 class="inside-h1">咖啡饮品</h1>
+        <div class="inside-body fixed-height">
+            <div class="coffeetab">
+                <ul class="tab-title"></ul>
+                <ul class="tab-con">
+                    <li class="active">
+                        <div class="itembox">
+                            <div id="MaterialBox">
+                            </div>
+                            <div class="itemnum">
+                                <label>杯数：</label>
+                                <span class="pm plus" data-daigou-reduce="true" id="qty_lost">-</span>
+                                <input class="cart_inpt" type="text" id="inp_Qty" data-daigou-multiple="true" value="1" keyboard="number" onkeyup="modQty($(this))" autocomplete="off">
+                                <span class="pm minus" data-daigou-add="true" id="qty_plus">+</span>
+                                <span class="jd_lave">剩余<span class="jd_color" id="txt_CupNumber">0</span>杯</span>
+                            </div>
+                            <div class="item">
+                                <label>总金额：</label>
+                                <input type="hidden" value="0" id="inp_Price" />
+                                <input type="hidden" value="0" id="inp_TotalNumber" />
+                                <div class="sum"><i class="red" id="txt_Amount">0</i>元</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="surebox">
+                    <button type="button" class="inside-btn sure" id="bntConfirm">确定所选</button>
+                    <div class="more">可继续选</div>
+                    <div class="showbox">
+                        <div class="img"><span class="num" id="num0">0</span><img src="../images/showimg01.jpg"></div>
+                        <div class="img last"><span class="num" id="num1">0</span><img src="../images/showimg02.jpg"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="new-btn-line">
+                <button type="button" class="inside-btn btn-red" id="btnSubmit">下一步</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    if (!LS.get("Shopping_Drink"))
+        LS.set("Shopping_Drink", 0);
+    //LS.setJson("Car", null);
+    LS.setJson("Ord", null);
+    $(function () {
+        $.ajax({
+            url: '@Url.Action("Init")',
+            type: "post",
+            data: {},
+            dataType: "json"
+        }).done(function (initData) {
+            var arg = window.external.Run("EtmEnvironment", "GetDrinkList", "");
+            arg = arg.replace(/(&quot;)/g, "\"");
+            var MaterialsSetting = JSON.parse(arg);
+            $.each(initData.DrinkList, function (index, Drink) {
+                var CurrentDrink = $.grep(MaterialsSetting, function (value) {
+                    return value.Value == Drink.Value;
+                })[0];
+                Drink.Materials = CurrentDrink.Materials;               //物料属性集
+                Drink.WaterValue = CurrentDrink.WaterValue;             //出水量
+                Drink.MaterialValue = CurrentDrink.MaterialValue;       //出料量         
+            });
+            PageInit(initData);
+            ShowDrink(initData);
+            //饮品切换
+            $('.coffeetab .tab-title li').click(function () {
+                $(this).addClass("active").siblings().removeClass("active");
+                LS.set("Shopping_Drink", Number($(this).attr("data")));
+                ShowDrink(initData);
+            });
+            //确定选择
+            $('#bntConfirm').click(function () {               
+                if (Number($('#inp_Qty').val()) < 1)
+                    return;
+                var Drink = $.grep(initData.DrinkList, function (value) {
+                    return value.Value == LS.get("Shopping_Drink");
+                })[0];
+                //赋值
+                var ConfirmDrink = JSON.parse(JSON.stringify(Drink));
+                ConfirmDrink.Number = Number($('#inp_Qty').val());
+                //配料
+                $.each(ConfirmDrink.Materials, function (index, Material) {
+                    //var cur = $('#MaterialBox .item').eq(index).find("span.active").index();
+                    $.each(Material.Weights, function (iindex, Weight) {
+                        var ObjWeight = $('#MaterialBox .item').eq(index).find("span").eq(iindex);
+                        if (ObjWeight.attr("class") != 'active') {
+                            ConfirmDrink.Materials[index].Weights.splice(iindex - ($('#MaterialBox .item').eq(index).find("span").length - ConfirmDrink.Materials[index].Weights.length), 1);
+                        }
+                    });
+                });
+                ConfirmCar(ConfirmDrink);
+                ShowDrink(initData);                
+            });
+            //下一步
+            $('#btnSubmit').click(function () {
+                if (!LS.getJson("Car") || LS.getJson("Car").length < 1) {
+                    alert('请先选择饮品！');
+                    return;
+                }
+                location.href = '@Url.Action("Car")';
+            });
+        });
+        //加
+        $("#qty_plus").click(function () {
+            $('#inp_Qty').val(Number($('#inp_Qty').val()) + 1);
+            modQty($('#inp_Qty'));
+        });
+        //减
+        $("#qty_lost").click(function () {
+            $('#inp_Qty').val(Number($('#inp_Qty').val()) - 1);
+            modQty($('#inp_Qty'));
+        });
+    })
+    //页面初始化
+    function PageInit(Data) {
+        //总数量
+        $('#inp_TotalNumber').val(Data.CupNumber);
+        //配料内容
+        var tabHtml = [];
+        $.each(Data.DrinkList, function (index, Drink) {
+            if (LS.get("Shopping_Drink") == index)
+                tabHtml.push('<li data=' + Drink.Value + ' class="active">' + Drink.Name + '</li>');
+            else
+                tabHtml.push('<li data=' + Drink.Value + '>' + Drink.Name + '</li>');
+        });
+        $('.tab-title').html(tabHtml.join(""));        //显示页面配料内容
+    }
+    //显示页面配料内容
+    function ShowDrink(Data) {
+        var Drink = $.grep(Data.DrinkList, function (value) {
+            return value.Value == LS.get("Shopping_Drink");
+        })[0];
+        var phtml = [];
+        $.each(Drink.Materials, function (index, Material) {
+            phtml.push('<div data=' + Material.Value + ' class="item">');
+            phtml.push('<label>' + Material.Name + '：</label>');
+            $.each(Material.Weights, function (iindex, Weight) {
+                if (iindex == 0)
+                    phtml.push('<span data=' + Weight.Value + ' class="active">' + Weight.Name + '</span>');
+                else
+                    phtml.push('<span data=' + Weight.Value + '">' + Weight.Name + '</span>');
+            });
+            phtml.push('</div>');
+        });
+        $('#MaterialBox').html(phtml.join(""));
+        //配料选择
+        $('#MaterialBox span').click(function () {
+            $(this).addClass("active").siblings("span").removeClass("active");
+        });
+        //数量
+        $('#inp_Qty').val(1);
+        //单价
+        $('#inp_Price').text(Drink.Price);
+        modQty($('#inp_Qty'));
+    }
+    //修改杯数
+    function modQty(e) {
+        //过滤
+        numberFormat(e);
+        //统计数量 及显示
+        var sum = 0;
+        $('.showbox span').each(function (index, item) { $(this).text(0); });
+        if (LS.getJson("Car")) {
+            $.each(LS.getJson("Car"), function (index, item) {
+                sum += item.Number;
+                $('#num' + item.Value).text(Number($("#num" + item.Value).text()) + Number(item.Number));
+            });
+            $('.showbox div span').each(function (index, item) {
+                if (Number($(this).text()) > 0) {
+                    $(".showbox .img").eq(index).show();
+                    //if (sum == Number($(this).text())) {
+                    //    //$(".showbox .more").eq(index).show();
+                    //    setTimeout(function () { $(".showbox .more").eq(index).fadeIn(); }, 500);
+                    //}
+                    //else {
+                    //    $(".showbox .more").eq(index).hide()
+                    //}
+                }
+            });
+        }
+        if (sum > 0)
+            setTimeout(function () { $(".surebox").find(".more").fadeIn(); }, 500);
+        else
+            $(".surebox").find(".more").hide();
+        //选择数量判断
+        if (e.val() == '' || e.val() <= 1) {
+            e.val(1);
+            $("#qty_lost").css("background-color", "#ccc");
+        }
+        else
+            $("#qty_lost").css("background-color", "");
+        if (Number(e.val()) >= Number($('#inp_TotalNumber').val()) - sum) {
+            e.val($('#inp_TotalNumber').val() - sum);
+            $("#qty_plus").css("background-color", "#ccc");
+        }
+        else
+            $("#qty_plus").css("background-color", "");
+        //剩余数量
+        $('#txt_CupNumber').text(Number($('#inp_TotalNumber').val()) - Number(e.val()) - sum);
+        //金额小计
+        $('#txt_Amount').text(Number($('#inp_Price').text()) * 100 * Number(e.val()) / 100);
+    }
+    //确定所选
+    function ConfirmCar(Drink) {
+        var CarDrink = [];
+        if (LS.getJson("Car"))
+            CarDrink = LS.getJson("Car");
+        //购物车整理
+        var IsPush = true;
+        $.each(CarDrink, function (index, item) {
+            if (item.Value == Drink.Value && JSON.stringify(item.Materials) == JSON.stringify(Drink.Materials)) {
+                item.Number += Number(Drink.Number);
+                IsPush = false;
+            }
+        });
+        if (IsPush)
+            CarDrink.push(Drink);
+        CarDrink.sort(SotUp);
+        LS.setJson("Car", CarDrink);
+        //console.log(LS.getJson("Car").length);
+        //console.log(JSON.stringify(LS.getJson("Car")));
+        //还可继续添加        
+    }
+    //饮品排充
+    function SotUp(x, y) {
+        if (x.Value != y.Value)
+            return (Number(x.Value) > Number(y.Value)) ? 1 : -1;
+        if (x.Materials[0].Weights[0].Value != y.Materials[0].Weights[0].Value)
+            return x.Materials[0].Weights[0].Value > y.Materials[0].Weights[0].Value ? 1 : -1;
+        if (x.Materials[1].Weights[0].Value != y.Materials[1].Weights[0].Value)
+            return x.Materials[1].Weights[0].Value > y.Materials[1].Weights[0].Value ? 1 : -1;
+        if (x.Materials[2].Weights[0].Value != y.Materials[2].Weights[0].Value)
+            return x.Materials[2].Weights[0].Value > y.Materials[2].Weights[0].Value ? 1 : -1;
+    }
+    //过滤
+    function numberFormat(e) {
+        e.val(e.val().replace(/[A-z\s\u4e00-\u9fa5]/g, ''));
+    }   
+
+</script>

@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ET_BusinessModel.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ETM_LOCATION_TO_LOCATION">
+          <Key>
+            <PropertyRef Name="LOCATION_TO_LOCATION_ID" />
+          </Key>
+          <Property Name="LOCATION_TO_LOCATION_ID" Type="varchar2" MaxLength="32" Nullable="false" />
+          <Property Name="LOCATION_ID" Type="varchar2" MaxLength="32" />
+          <Property Name="API_TYPE" Type="number" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="API_LOCATION_ID" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="API_LOCATION_NAME" Type="varchar2" MaxLength="500" Nullable="false" />
+          <Property Name="API_LOCATION_BIZTYPE" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="GMT_CREATE" Type="date" />
+          <Property Name="GMT_MODIFY" Type="date" />
+          <Property Name="API_LOCATION_DEFAULT" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="API_LOCATION_PARENTID" Type="varchar2" MaxLength="32" />
+        </EntityType>
+        <EntityType Name="ETM_SYS_LOCATION">
+          <Key>
+            <PropertyRef Name="LOCATION_ID" />
+          </Key>
+          <Property Name="LOCATION_ID" Type="varchar2" MaxLength="32" Nullable="false" />
+          <Property Name="NAME" Type="varchar2" MaxLength="500" />
+          <Property Name="PID" Type="varchar2" MaxLength="32" />
+          <Property Name="PATH" Type="varchar2" MaxLength="100" />
+          <Property Name="CODE" Type="number" Precision="7" Scale="0" />
+        </EntityType>
+        <EntityContainer Name="ET_BusinessModelStoreContainer">
+          <EntitySet Name="ETM_LOCATION_TO_LOCATION" EntityType="Self.ETM_LOCATION_TO_LOCATION" Schema="ETM_BUSINESS" store:Type="Tables" />
+          <EntitySet Name="ETM_SYS_LOCATION" EntityType="Self.ETM_SYS_LOCATION" Schema="ETM_BUSINESS" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ET_BusinessModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ETM_LOCATION_TO_LOCATION">
+          <Key>
+            <PropertyRef Name="LOCATION_TO_LOCATION_ID" />
+          </Key>
+          <Property Name="LOCATION_TO_LOCATION_ID" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LOCATION_ID" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="API_TYPE" Type="Byte" Nullable="false" />
+          <Property Name="API_LOCATION_ID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="API_LOCATION_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="API_LOCATION_BIZTYPE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GMT_CREATE" Type="DateTime" />
+          <Property Name="GMT_MODIFY" Type="DateTime" />
+          <Property Name="API_LOCATION_DEFAULT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="API_LOCATION_PARENTID" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ETM_SYS_LOCATION">
+          <Key>
+            <PropertyRef Name="LOCATION_ID" />
+          </Key>
+          <Property Name="LOCATION_ID" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="PID" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="PATH" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CODE" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="ET_BusinessEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ETM_LOCATION_TO_LOCATION" EntityType="Self.ETM_LOCATION_TO_LOCATION" />
+          <EntitySet Name="ETM_SYS_LOCATION" EntityType="Self.ETM_SYS_LOCATION" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ET_BusinessModelStoreContainer" CdmEntityContainer="ET_BusinessEntities">
+          <EntitySetMapping Name="ETM_LOCATION_TO_LOCATION">
+            <EntityTypeMapping TypeName="ET_BusinessModel.ETM_LOCATION_TO_LOCATION">
+              <MappingFragment StoreEntitySet="ETM_LOCATION_TO_LOCATION">
+                <ScalarProperty Name="LOCATION_TO_LOCATION_ID" ColumnName="LOCATION_TO_LOCATION_ID" />
+                <ScalarProperty Name="LOCATION_ID" ColumnName="LOCATION_ID" />
+                <ScalarProperty Name="API_TYPE" ColumnName="API_TYPE" />
+                <ScalarProperty Name="API_LOCATION_ID" ColumnName="API_LOCATION_ID" />
+                <ScalarProperty Name="API_LOCATION_NAME" ColumnName="API_LOCATION_NAME" />
+                <ScalarProperty Name="API_LOCATION_BIZTYPE" ColumnName="API_LOCATION_BIZTYPE" />
+                <ScalarProperty Name="GMT_CREATE" ColumnName="GMT_CREATE" />
+                <ScalarProperty Name="GMT_MODIFY" ColumnName="GMT_MODIFY" />
+                <ScalarProperty Name="API_LOCATION_DEFAULT" ColumnName="API_LOCATION_DEFAULT" />
+                <ScalarProperty Name="API_LOCATION_PARENTID" ColumnName="API_LOCATION_PARENTID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ETM_SYS_LOCATION">
+            <EntityTypeMapping TypeName="ET_BusinessModel.ETM_SYS_LOCATION">
+              <MappingFragment StoreEntitySet="ETM_SYS_LOCATION">
+                <ScalarProperty Name="LOCATION_ID" ColumnName="LOCATION_ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="PATH" ColumnName="PATH" />
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

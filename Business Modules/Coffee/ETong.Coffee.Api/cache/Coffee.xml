@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ArrayOfCoffeeInit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <CoffeeInit>
+    <StateCode>1</StateCode>
+    <EtmID>ETMDefault</EtmID>
+    <CupNumber>25</CupNumber>
+    <SendSMS>0</SendSMS>
+    <DrinkList>
+      <Drink>
+        <Name>现磨咖啡</Name>
+        <Value>0</Value>
+        <Materials />
+        <Number>0</Number>
+        <Price>8</Price>
+        <Capacity>180</Capacity>
+      </Drink>
+      <Drink>
+        <Name>原磨豆浆</Name>
+        <Value>1</Value>
+        <Materials />
+        <Number>0</Number>
+        <Price>5</Price>
+        <Capacity>180</Capacity>
+      </Drink>
+    </DrinkList>
+  </CoffeeInit>  
+</ArrayOfCoffeeInit>

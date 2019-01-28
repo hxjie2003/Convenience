@@ -1,0 +1,350 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4574FB84-C6E7-4BB7-866F-4D671A80CAB7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ETong.Entity</RootNamespace>
+    <AssemblyName>ETong.Entity</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>bin\Debug\ETong.Entity.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\..\ReferenceDLL\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\..\ReferenceDLL\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ErrorCodeException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Framework\BankTerminalInfo.cs" />
+    <Compile Include="Framework\ETMGlobalInfo.cs" />
+    <Compile Include="Framework\MachineInfo.cs" />
+    <Compile Include="PagedEntity.cs" />
+    <Compile Include="Persistence\Member\Message.cs" />
+    <Compile Include="Presentation\Ads\Adplaylist.cs" />
+    <Compile Include="Presentation\Ads\Advertised.cs" />
+    <Compile Include="Persistence\Bus\Common.cs" />
+    <Compile Include="Persistence\Bus\Config.cs" />
+    <Compile Include="Persistence\Bus\MessageCode.cs" />
+    <Compile Include="Persistence\Hospital\CallbackEnum.cs" />
+    <Compile Include="Persistence\Hospital\PatientInfo.cs" />
+    <Compile Include="Persistence\Hospital\HospitalBaseItemInfo.cs" />
+    <Compile Include="Persistence\Hospital\HospitalOrderCustom.cs" />
+    <Compile Include="Persistence\Hospital\HospitalOrderEntity.cs" />
+    <Compile Include="Persistence\Hospital\HospitalOrderExtent.cs" />
+    <Compile Include="Persistence\Member\Api\AccountArgs.cs" />
+    <Compile Include="Persistence\Member\Api\ChangePasswordArgs.cs" />
+    <Compile Include="Persistence\Member\Api\MemberContactResult.cs" />
+    <Compile Include="Persistence\Member\Api\DeliveryInfo.cs" />
+    <Compile Include="Persistence\Member\Api\LocationInfo.cs" />
+    <Compile Include="Persistence\Member\Api\MemberTrafficInfo.cs" />
+    <Compile Include="Persistence\Member\Api\MemberRateInfo.cs" />
+    <Compile Include="Persistence\Member\Api\MemberInfo.cs" />
+    <Compile Include="Persistence\Member\Api\PaginationDataTable.cs" />
+    <Compile Include="Persistence\Member\Api\Reference\DeliveryFeeReference.cs" />
+    <Compile Include="Persistence\Order\OrderCallBackArgs.cs" />
+    <Compile Include="Persistence\Order\OrderExtend.cs" />
+    <Compile Include="Persistence\Shop\IConfig.cs" />
+    <Compile Include="Persistence\Shop\Location.cs" />
+    <Compile Include="Persistence\Shop\ProductResult.cs" />
+    <Compile Include="Persistence\Shop\CategoryResult.cs" />
+    <Compile Include="Persistence\Shop\ShopApiResult.cs" />
+    <Compile Include="Persistence\Shop\ShopOrderExtend.cs" />
+    <Compile Include="Presentation\Ads\EtmInfo.cs" />
+    <Compile Include="Presentation\Air\AirBookTicket.cs" />
+    <Compile Include="Presentation\Air\AirEnum.cs" />
+    <Compile Include="Presentation\Air\AirFee.cs" />
+    <Compile Include="Presentation\Air\AirlineTicketInfo.cs" />
+    <Compile Include="Presentation\Air\AirOrderExtend.cs" />
+    <Compile Include="Presentation\Air\AirOrderInfo.cs" />
+    <Compile Include="Presentation\Air\AirOrderRequest.cs" />
+    <Compile Include="Presentation\Air\AirPassengerOrderCustom.cs" />
+    <Compile Include="Presentation\Air\AirResponse.cs" />
+    <Compile Include="Presentation\Air\FlightInfo.cs" />
+    <Compile Include="Presentation\Air\PolcyResult.cs" />
+    <Compile Include="Presentation\Air\ThirdEntity\AirCityInfo.cs" />
+    <Compile Include="Presentation\Air\ThirdEntity\AirCityMinInfo.cs" />
+    <Compile Include="Presentation\Air\ThirdEntity\CabinType.cs" />
+    <Compile Include="Presentation\Air\ThirdEntity\FlightDataResponse.cs" />
+    <Compile Include="Presentation\Air\ThirdOrderInfo.cs" />
+    <Compile Include="Presentation\Air\Tpinfo.cs" />
+    <Compile Include="Presentation\Coffee\Operate.cs" />
+    <Compile Include="Presentation\Coffee\CoffeeInit.cs" />
+    <Compile Include="Presentation\Coffee\CoffeeInitReq.cs" />
+    <Compile Include="Presentation\Coffee\CoffeeOrder.cs" />
+    <Compile Include="Presentation\Coffee\CoffeeType.cs" />
+    <Compile Include="Presentation\Coffee\Drinks.cs" />
+    <Compile Include="Presentation\Coffee\WebInputArgs.cs" />
+    <Compile Include="Presentation\CreditCard\CardArgs.cs" />
+    <Compile Include="Presentation\CreditCard\CreditCardDetails.cs" />
+    <Compile Include="Presentation\CreditCard\CreditCardInfo.cs" />
+    <Compile Include="Presentation\CreditCard\CreditCardOrderInfo.cs" />
+    <Compile Include="Presentation\CreditCard\FeeArgs.cs" />
+    <Compile Include="Presentation\CreditCard\InterfaceInfo.cs" />
+    <Compile Include="Presentation\CreditCard\JavaCreditCardOrderInfo.cs" />
+    <Compile Include="Presentation\CreditCard\OrderCommonInfo.cs" />
+    <Compile Include="Presentation\CreditCard\OrderDetailsRequestModel.cs" />
+    <Compile Include="Presentation\CreditCard\OrtderArgs.cs" />
+    <Compile Include="Presentation\CreditCard\SmsArgs.cs" />
+    <Compile Include="Presentation\Hospital\DoctorPartner.cs" />
+    <Compile Include="Presentation\Hospital\HospitalRegister.cs" />
+    <Compile Include="Presentation\Hospital\RegisterUserResult.cs" />
+    <Compile Include="Presentation\IDCard\CitizenInfo.cs" />
+    <Compile Include="Presentation\IDCard\IDCardInPutArgs.cs" />
+    <Compile Include="Presentation\IDCard\IDCardOutPutArgs.cs" />
+    <Compile Include="Presentation\IDCard\IIdentityCard.cs" />
+    <Compile Include="Presentation\Infrasture\OpenApiReliableInfo.cs" />
+    <Compile Include="Presentation\Infrasture\OpenApiUsageInfo.cs" />
+    <Compile Include="Presentation\Infrasture\DBConnetionArg.cs" />
+    <Compile Include="Presentation\Infrasture\DBMetadataArg.cs" />
+    <Compile Include="Presentation\Infrasture\DBMetadataResult.cs" />
+    <Compile Include="Persistence\Hospital\DoctorInfo.cs" />
+    <Compile Include="Persistence\Hospital\DoctorScheduleInfo.cs" />
+    <Compile Include="Persistence\Hospital\HospitalInfo.cs" />
+    <Compile Include="Persistence\Hospital\DepartmentInfo.cs" />
+    <Compile Include="Presentation\Infrasture\IDResult.cs" />
+    <Compile Include="Persistence\Member\Api\AuthArgs.cs" />
+    <Compile Include="Persistence\Member\Api\AuthBehavior.cs" />
+    <Compile Include="Framework\BudgetInfo.cs" />
+    <Compile Include="Framework\ETMConfig.cs" />
+    <Compile Include="Framework\ETMException.cs" />
+    <Compile Include="Framework\LoginInfo.cs" />
+    <Compile Include="Persistence\Member\Api\MemberContactArgs.cs" />
+    <Compile Include="Persistence\Member\Api\DeliveryInfoArgs.cs" />
+    <Compile Include="Persistence\Member\Api\DeliveryInfoResult.cs" />
+    <Compile Include="Persistence\Member\Api\MemberInfoResult.cs" />
+    <Compile Include="Persistence\Member\Api\MobileRegArgs.cs" />
+    <Compile Include="Persistence\Member\Api\RealNameAuthArgs.cs" />
+    <Compile Include="Persistence\Member\Api\RealNameBindingArgs.cs" />
+    <Compile Include="Persistence\Member\Api\RealNameRegArgs.cs" />
+    <Compile Include="Persistence\Member\Js\GetMemberInfoAsynArgs.cs" />
+    <Compile Include="Persistence\Menu\LinkItem.cs" />
+    <Compile Include="Persistence\Menu\MenusResult.cs" />
+    <Compile Include="Presentation\Member\CacheInfo.cs" />
+    <Compile Include="Presentation\Moblie\FeeArgs.cs" />
+    <Compile Include="Presentation\Moblie\FeeOuts.cs" />
+    <Compile Include="Presentation\Moblie\MobileDetail.cs" />
+    <Compile Include="Presentation\Moblie\OrderArgs.cs" />
+    <Compile Include="Presentation\Moblie\OrderDetail.cs" />
+    <Compile Include="Presentation\Moblie\OrderStatus.cs" />
+    <Compile Include="Presentation\Moblie\RemarksArgs.cs" />
+    <Compile Include="Presentation\Monitor\OperateArgs.cs" />
+    <Compile Include="Presentation\Monitor\StatusQueryParam.cs" />
+    <Compile Include="Presentation\Monitor\Operate.cs" />
+    <Compile Include="Presentation\Monitor\EtmStatus.cs" />
+    <Compile Include="Presentation\Monitor\HarddiskInfo.cs" />
+    <Compile Include="Presentation\Monitor\MemoryInfo.cs" />
+    <Compile Include="Presentation\Monitor\ResultData.cs" />
+    <Compile Include="Presentation\Order\MemberOrderShowInfo.cs" />
+    <Compile Include="Presentation\PaymentCollection\OrderCommonInfo.cs" />
+    <Compile Include="Presentation\PaymentCollection\OrderStatusInfo.cs" />
+    <Compile Include="Presentation\PaymentCollection\PaymentCollectionBrushCardInputArgs.cs" />
+    <Compile Include="Presentation\PaymentCollection\PaymentCollectionInputArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Presentation\PaymentCollection\PaymentCollectionOrderInfo.cs" />
+    <Compile Include="Presentation\PaymentCollection\PaymentCollectionOrderInputArgs.cs" />
+    <Compile Include="Presentation\PaymentCollection\PaymentCollectionType.cs" />
+    <Compile Include="Presentation\PaymentCollection\PaymentCollectionWalletAccount.cs" />
+    <Compile Include="Presentation\Payment\OpenPlatPosPayResult.cs" />
+    <Compile Include="Presentation\Payment\UnionPayLogInfo.cs" />
+    <Compile Include="Presentation\PhoneBroadband\Fee.cs" />
+    <Compile Include="Presentation\Profit\Profit.cs" />
+    <Compile Include="Presentation\Traffic\Location.cs" />
+    <Compile Include="Presentation\Traffic\OnLinePayfineList.cs" />
+    <Compile Include="Presentation\Traffic\TrafficPoundage.cs" />
+    <Compile Include="Presentation\Traffic\UpdateOrdersParam.cs" />
+    <Compile Include="Presentation\Transfer\OrderStatusInfo.cs" />
+    <Compile Include="Presentation\Wallet\BankInfo.cs" />
+    <Compile Include="Presentation\Wallet\BoundBankCardInfo.cs" />
+    <Compile Include="Presentation\Wallet\CityInfo.cs" />
+    <Compile Include="Presentation\Wallet\Input\InputAccount.cs" />
+    <Compile Include="Presentation\Wallet\Input\InputAuth.cs" />
+    <Compile Include="Presentation\Wallet\Input\InputBankCard.cs" />
+    <Compile Include="Presentation\Wallet\Input\InputBase.cs" />
+    <Compile Include="Presentation\Wallet\Input\OpenPlatInputPay.cs" />
+    <Compile Include="Presentation\Wallet\Input\InputPay.cs" />
+    <Compile Include="Presentation\Wallet\Input\InputRecharge.cs" />
+    <Compile Include="Presentation\Wallet\Input\InputTradeRecord.cs" />
+    <Compile Include="Presentation\Wallet\Input\InputTransfer.cs" />
+    <Compile Include="Presentation\Wallet\Input\InputWithdraw.cs" />
+    <Compile Include="Presentation\Wallet\LocationInfo.cs" />
+    <Compile Include="Presentation\Wallet\MemberInfo.cs" />
+    <Compile Include="Presentation\Wallet\OrderInfo.cs" />
+    <Compile Include="Presentation\Wallet\OrderInfoSimply.cs" />
+    <Compile Include="Presentation\Wallet\ProvinceInfo.cs" />
+    <Compile Include="Presentation\Wallet\Recharge.cs" />
+    <Compile Include="Presentation\Wallet\TransactionAmountLimit.cs" />
+    <Compile Include="Presentation\Wallet\TransactionRecord.cs" />
+    <Compile Include="Presentation\Wallet\TransactionRecordResult.cs" />
+    <Compile Include="Presentation\Wallet\WalletAccountInfo.cs" />
+    <Compile Include="Presentation\Wallet\WalletAccountNames.cs" />
+    <Compile Include="Presentation\Menu\MenuGroups.cs" />
+    <Compile Include="Presentation\Message\ModbileStateResult.cs" />
+    <Compile Include="Presentation\Message\SmsMessageArgs.cs" />
+    <Compile Include="Persistence\Product\Product.cs" />
+    <Compile Include="Presentation\Infrasture\OpenApiInfo.cs" />
+    <Compile Include="Presentation\Infrasture\OpenApplicationInfo.cs" />
+    <Compile Include="Presentation\Member\Member_ETM.cs" />
+    <Compile Include="Presentation\Moblie\MobileOrderExtend.cs" />
+    <Compile Include="Presentation\Moblie\MobileThirdOrderResult.cs" />
+    <Compile Include="Presentation\Moblie\MobileThirdOrderArgs.cs" />
+    <Compile Include="Presentation\Moblie\OrderDetails.cs" />
+    <Compile Include="Presentation\OpenApiHeaders.cs" />
+    <Compile Include="Presentation\OrderInfo.cs" />
+    <Compile Include="Presentation\Order\MemberOrderGroupDetail.cs" />
+    <Compile Include="Presentation\Order\Orderstatistics.cs" />
+    <Compile Include="Presentation\Payment\BankCardInfo.cs" />
+    <Compile Include="Presentation\Payment\BankCardInPutArgs.cs" />
+    <Compile Include="Presentation\Payment\BankCardOutPutArgs.cs" />
+    <Compile Include="Presentation\Payment\IBankCardManager.cs" />
+    <Compile Include="Presentation\Payment\ICCardTagInfo.cs" />
+    <Compile Include="Presentation\Payment\IKeyboardManager.cs" />
+    <Compile Include="Presentation\Payment\OrderPayStatusUpdateEntity.cs" />
+    <Compile Include="Presentation\Monitor\CommandParameter.cs" />
+    <Compile Include="Presentation\Monitor\CommandResultData.cs" />
+    <Compile Include="Presentation\Monitor\EtmInfo.cs" />
+    <Compile Include="Presentation\Monitor\ETMQueryParameter.cs" />
+    <Compile Include="Presentation\Monitor\MonitorData.cs" />
+    <Compile Include="Presentation\Monitor\MonitorDataItem.cs" />
+    <Compile Include="Presentation\Monitor\MonitorEarlywarnLevle.cs" />
+    <Compile Include="Presentation\Monitor\MonitorParameter.cs" />
+    <Compile Include="Presentation\Monitor\MonitorSecurityPolicy.cs" />
+    <Compile Include="Presentation\Monitor\MonitorSecurityPolicyItem.cs" />
+    <Compile Include="Presentation\Monitor\MonitorWork.cs" />
+    <Compile Include="Presentation\Monitor\MonitorWorkPlan.cs" />
+    <Compile Include="Presentation\Monitor\MonitorWorkStep.cs" />
+    <Compile Include="Presentation\Monitor\ServiceParameter.cs" />
+    <Compile Include="Presentation\Monitor\ServiceResult.cs" />
+    <Compile Include="Presentation\EtmEnvironment\ETMDeviceInfo.cs" />
+    <Compile Include="Presentation\EtmEnvironment\EtmNearbyRemarkModel.cs" />
+    <Compile Include="Presentation\PhoneBroadband\MemberPay.cs" />
+    <Compile Include="Presentation\Product\ProductInfo.cs" />
+    <Compile Include="Presentation\PhoneBroadband\OrderExtend.cs" />
+    <Compile Include="Presentation\Traffic\BackCallParam.cs" />
+    <Compile Include="Presentation\Traffic\TrafficOrderDetail.cs" />
+    <Compile Include="Presentation\Traffic\TrafficOrderExtend.cs" />
+    <Compile Include="Presentation\Traffic\TrafficSearchParam.cs" />
+    <Compile Include="Presentation\Transfer\CityInfo.cs" />
+    <Compile Include="Presentation\Transfer\ProvinceInfo.cs" />
+    <Compile Include="Presentation\Transfer\BankAccountInfo.cs" />
+    <Compile Include="Presentation\Transfer\TransferAuthInfo.cs" />
+    <Compile Include="Presentation\Transfer\TransferInfo.cs" />
+    <Compile Include="Presentation\Transfer\OrderCommonInfo.cs" />
+    <Compile Include="Presentation\Transfer\TransferInputArgs.cs" />
+    <Compile Include="Presentation\Transfer\TransferOrderInfo.cs" />
+    <Compile Include="Presentation\Utilities\LiferateOrderLogDetail.cs" />
+    <Compile Include="Presentation\Utilities\MemberRateInfoWithAdd.cs" />
+    <Compile Include="Presentation\Utilities\MemberRateInfoWithList.cs" />
+    <Compile Include="Presentation\Utilities\UtillitiesResponse.cs" />
+    <Compile Include="Presentation\Utilities\UtilitiesProvince.cs" />
+    <Compile Include="Presentation\Utilities\UtilitiesCity.cs" />
+    <Compile Include="Presentation\Wallet\OrderResult.cs" />
+    <Compile Include="Presentation\Wallet\WalletPaymentArgs.cs" />
+    <Compile Include="Presentation\Wallet\WalletPaymentResult.cs" />
+    <Compile Include="Presentation\Wallet\WalletRefundArgs.cs" />
+    <Compile Include="ResponseData.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResultData.cs" />
+    <Compile Include="Upgrade\IgnoreNodeInfo.cs" />
+    <Compile Include="Upgrade\UpgradeHistory.cs" />
+    <Compile Include="Upgrade\VersionInfo.cs" />
+    <Compile Include="Upgrade\VersionLog.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Persistence\Payment\" />
+    <Folder Include="Persistence\Structure\" />
+    <Folder Include="Presentation\Structure\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ETong.Common\ETong.Common.csproj">
+      <Project>{831eb3e2-953d-406d-9b95-480d3d0d53d6}</Project>
+      <Name>ETong.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

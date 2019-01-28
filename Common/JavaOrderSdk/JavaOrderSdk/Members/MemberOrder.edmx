@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="MEMBER">
+          <Key>
+            <PropertyRef Name="MEMBER_ID" />
+          </Key>
+          <Property Name="MEMBER_ID" Type="varchar2" MaxLength="32" Nullable="false" />
+          <Property Name="EMAIL" Type="varchar2" MaxLength="50" />
+          <Property Name="USERNAME" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="MOBILE" Type="varchar2" MaxLength="25" />
+          <Property Name="PASSWD" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="STATE" Type="number" Precision="1" Scale="0" />
+          <Property Name="ACTIVATE" Type="number" Precision="1" Scale="0" />
+          <Property Name="TYP" Type="number" Precision="1" Scale="0" />
+          <Property Name="REG_FROM" Type="number" Precision="1" Scale="0" />
+          <Property Name="REG_IP" Type="varchar2" MaxLength="64" />
+          <Property Name="FEATURE" Type="varchar2" MaxLength="500" />
+          <Property Name="GMT_REG" Type="date" />
+          <Property Name="GMT_MODIFY" Type="date" />
+          <Property Name="LEVEL_ID" Type="varchar2" MaxLength="32" />
+          <Property Name="WEB_TOTAL" Type="number" Precision="10" Scale="0" />
+          <Property Name="APP_TOTAL" Type="number" Precision="10" Scale="0" />
+          <Property Name="ETM_TOTAL" Type="number" Precision="10" Scale="0" />
+          <Property Name="LOGIN_NUMBER" Type="number" Precision="10" Scale="0" />
+          <Property Name="GMT_LOGIN" Type="date" />
+          <Property Name="LOGIN_IP" Type="varchar2" MaxLength="64" />
+          <Property Name="P_ID" Type="varchar2" MaxLength="32" />
+          <Property Name="BIND_MOBILE" Type="varchar2" MaxLength="1" Nullable="false" />
+          <Property Name="BIND_EMAIL" Type="varchar2" MaxLength="1" Nullable="false" />
+          <Property Name="DRIVER_ID" Type="varchar2" MaxLength="32" />
+          <Property Name="RECOMMEND_CODE" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="MEMBER" EntityType="Self.MEMBER" Schema="ET_MEMBER" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityType Name="MEMBER">
+          <Key>
+            <PropertyRef Name="MEMBER_ID" />
+          </Key>
+          <Property Name="MEMBER_ID" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="USERNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MOBILE" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWD" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="STATE" Type="Boolean" />
+          <Property Name="ACTIVATE" Type="Boolean" />
+          <Property Name="TYP" Type="Boolean" />
+          <Property Name="REG_FROM" Type="Boolean" />
+          <Property Name="REG_IP" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="FEATURE" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="GMT_REG" Type="DateTime" />
+          <Property Name="GMT_MODIFY" Type="DateTime" />
+          <Property Name="LEVEL_ID" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="WEB_TOTAL" Type="Int32" />
+          <Property Name="APP_TOTAL" Type="Int32" />
+          <Property Name="ETM_TOTAL" Type="Int32" />
+          <Property Name="LOGIN_NUMBER" Type="Int32" />
+          <Property Name="GMT_LOGIN" Type="DateTime" />
+          <Property Name="LOGIN_IP" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="P_ID" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="BIND_MOBILE" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BIND_EMAIL" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DRIVER_ID" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="RECOMMEND_CODE" Type="Decimal" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityContainer Name="MemberContext" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+          <EntitySet Name="MEMBER" EntityType="Self.MEMBER" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="MemberContext">
+          <EntitySetMapping Name="MEMBER">
+            <EntityTypeMapping TypeName="Model.MEMBER">
+              <MappingFragment StoreEntitySet="MEMBER">
+                <ScalarProperty Name="MEMBER_ID" ColumnName="MEMBER_ID" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="MOBILE" ColumnName="MOBILE" />
+                <ScalarProperty Name="PASSWD" ColumnName="PASSWD" />
+                <ScalarProperty Name="STATE" ColumnName="STATE" />
+                <ScalarProperty Name="ACTIVATE" ColumnName="ACTIVATE" />
+                <ScalarProperty Name="TYP" ColumnName="TYP" />
+                <ScalarProperty Name="REG_FROM" ColumnName="REG_FROM" />
+                <ScalarProperty Name="REG_IP" ColumnName="REG_IP" />
+                <ScalarProperty Name="FEATURE" ColumnName="FEATURE" />
+                <ScalarProperty Name="GMT_REG" ColumnName="GMT_REG" />
+                <ScalarProperty Name="GMT_MODIFY" ColumnName="GMT_MODIFY" />
+                <ScalarProperty Name="LEVEL_ID" ColumnName="LEVEL_ID" />
+                <ScalarProperty Name="WEB_TOTAL" ColumnName="WEB_TOTAL" />
+                <ScalarProperty Name="APP_TOTAL" ColumnName="APP_TOTAL" />
+                <ScalarProperty Name="ETM_TOTAL" ColumnName="ETM_TOTAL" />
+                <ScalarProperty Name="LOGIN_NUMBER" ColumnName="LOGIN_NUMBER" />
+                <ScalarProperty Name="GMT_LOGIN" ColumnName="GMT_LOGIN" />
+                <ScalarProperty Name="LOGIN_IP" ColumnName="LOGIN_IP" />
+                <ScalarProperty Name="P_ID" ColumnName="P_ID" />
+                <ScalarProperty Name="BIND_MOBILE" ColumnName="BIND_MOBILE" />
+                <ScalarProperty Name="BIND_EMAIL" ColumnName="BIND_EMAIL" />
+                <ScalarProperty Name="DRIVER_ID" ColumnName="DRIVER_ID" />
+                <ScalarProperty Name="RECOMMEND_CODE" ColumnName="RECOMMEND_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer>
+    <edmx:Connection>
+      <edmx:DesignerInfoPropertySet>
+        <edmx:DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </edmx:DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <edmx:DesignerInfoPropertySet>
+        <edmx:DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <edmx:DesignerProperty Name="EnablePluralization" Value="false" />
+        <edmx:DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <edmx:DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <edmx:DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </edmx:DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams />
+  </edmx:Designer>
+</edmx:Edmx>

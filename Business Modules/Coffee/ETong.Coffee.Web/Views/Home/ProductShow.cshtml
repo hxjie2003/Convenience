@@ -1,0 +1,117 @@
+﻿@{
+    var resourceSiteURL = System.Configuration.ConfigurationManager.AppSettings["ResDomain"];
+}
+
+<div class="mainframe">
+    <form id="submitForm" action="" method="post">
+        <h1 class="inside-h1">咖啡饮品</h1>
+        <div class="inside-body fixed-height">
+            <div class="waitbox">
+                <div class="leftimg"><img id="MakingImg" src="../images/coffee0.jpg"></div>
+                <div class="msg-box">
+                    <div class="msg-con" id="OutNowMessage">                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>    
+    var Tip = '<p>本杯饮品</p><p class="s">{0}</p><p>正在制作中，请稍后......</p>';
+    var OverTip = '<p></p><p class="s">本杯饮品制作完成，请取杯！</p><p></p>';
+    if (!LS.getJson("Ord"))
+        location.href = '@Url.Action("Index")';    
+    $(function () {
+        //设置不自动退出
+        etong.etmcommon.setAutoLogout(false);
+        //离开页面时设置为可自动退出
+        window.onbeforeunload = function () {           
+            etong.etmcommon.setAutoLogout(true);
+        }
+        //showGlobLoadingFull();
+        showGlobLoading();
+        if (!LS.getJson("Ord").SubmitMake) {
+            var WebInputArgs = {
+                CallBackUrl: 'Callback',
+                OpenDoorUrl: 'MakeOver',
+                Drinks: LS.getJson("Ord").DrinkList,
+                OrderId: LS.getJson("Ord").OrderId,
+                OrderStatusUrl: window.location.host + '/Home/UpdateOrderStatus'
+            };
+            var Ord = LS.getJson("Ord");
+            Ord.SubmitMake = true;
+            LS.setJson("Ord", Ord);
+            ShowMakeing();
+            //调用咖啡机制作咖啡
+            setTimeout(window.external.RunAsyn("EtmEnvironment", "MadeDrinks", JSON.stringify(WebInputArgs)), 2000);
+            //window.external.RunAsyn("EtmEnvironment", "MadeDrinks", JSON.stringify(WebInputArgs));            
+        }
+        else {
+            ShowMakeing();
+        }
+    });
+
+    //显示提示
+    function ShowMakeing() {
+        //alert("界面提示切换");
+        var Ord = LS.getJson("Ord");
+        //显示提示
+        if (LS.getJson("Ord") && LS.getJson("Ord").DrinkList.length >= 1) {
+            //图片
+            $("#MakingImg").attr('src', '../images/coffee' + LS.getJson("Ord").DrinkList[0].Value + '.jpg');
+            //提示
+            var msg = '';
+            msg += LS.getJson("Ord").DrinkList[0].Name + ' ';
+            $.each(LS.getJson("Ord").DrinkList[0].Materials, function (index, item) {
+                msg += item.Weights[0].Name + ' ';
+            });
+            $('#OutNowMessage').html(Tip.replace('{0}', msg));
+            @*//制作饮品
+            var req = {
+                OrderId: LS.getJson("Ord").OrderId,
+                Drink: LS.getJson("Ord").DrinkList[0]
+            };
+            $.ajax({
+                url: '@Url.Action("MakeCallBack")',
+                type: "post",
+                data: req,
+                dataType: "json"
+            }).done(function (data) {
+            });*@
+            //删除            
+            Ord.DrinkList.shift();
+            LS.setJson("Ord", Ord);
+            //测试 模拟制作完成
+            //setTimeout("ShowMakeOver()", 5000);
+        }
+        else {
+            //制作完
+            LS.setJson("Ord", null);
+            setTimeout("GoHome()", 2000);
+        }
+    }
+    //制作完成显示取走咖啡提示
+    function ShowMakeOver()
+    {        
+        $('#OutNowMessage').html(OverTip);
+        //模拟取杯 后
+        //setTimeout("ShowMakeing()", 2000);
+    }
+
+
+    //回调执行成功之后返回
+    function Callback(arg) {
+        //返回一个Drink类型
+        arg = arg.replace(/(&quot;)/g, "\"");
+        //oAlert(arg);
+        ShowMakeing();
+    }
+    //制作饮料完成
+    function MakeOver(arg)
+    {
+        //返回一个Drink类型
+        arg = arg.replace(/(&quot;)/g, "\"");
+        //oAlert(arg);
+        ShowMakeOver();
+    }
+</script>

@@ -1,0 +1,122 @@
+﻿@{
+    var resourceSiteURL = System.Configuration.ConfigurationManager.AppSettings["ResDomain"];
+}
+<div class="mainframe">
+    <form id="submitForm" action="" method="post">
+        <h1 class="inside-h1">咖啡饮品</h1>
+        <div class="inside-body fixed-height">
+            <div class="coffeebox">
+                <ul>
+                    <li>
+                        <img src="../images/coffee01.jpg" class="img_Rest">
+                        <div class="price">
+                            单价：<span id="Price0"></span>元/杯
+                            <a value="0" href="/home/Products" class="shopping">去购买</a>
+                        </div>
+                    </li>
+                    <li class="last">
+                        <img src="../images/coffee02.jpg" class="img_Rest">
+                        <div class="price">
+                            单价：<span id="Price1"></span>元/杯                            
+                            <a value="1" href="/home/Products" class="shopping">去购买</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="inside-btn-line">
+        </div>
+    </form>
+</div>
+<script>
+    LS.set("inp_Rest", 0);          //复位计数清0
+    LS.set("Shopping_Drink", 0);    //初始化默认购买饮品类型
+    LS.setJson("Car", null);        //购物车
+    //LS.setJson("Ord", null);
+    $(function () {
+
+        //购买链接初始化
+        $('.shopping').click(function () {
+            LS.set("Shopping_Drink", $(this).attr("value"));
+            //location.href = '@Url.Action("Products")';
+        });
+
+        //单价初始化
+        $.ajax({
+            url: '@Url.Action("Init")',
+            type: "post",
+            data: {},
+            dataType: "json"
+        }).done(function (initData) {
+            //console.log(initData);
+            $.each(initData.DrinkList, function (index, Drink) {
+                //console.log(Drink);
+                $('#Price' + Drink.Value).text(Drink.Price);
+            });
+            //检测数量
+            if (initData.CupNumber <= 0)
+            {
+                alert("非常抱歉，饮品已经卖完，欢迎下次再来。","","", function () {
+                    //GoHome();
+                    $('.shopping').each(function () { $(this).attr('href', '#') });
+                });                
+            }
+        }).fail(function () {
+        }).always(function () {
+        });
+               
+
+        //复位
+        $(".img_Rest").click(function () {
+            LS.set("inp_Rest", Number(LS.get("inp_Rest")) + 1);
+            if (LS.get("inp_Rest") == 5) {
+                $.ajax({
+                    url: '@Url.Action("Rest")',
+                    type: "post",
+                    data: {},
+                    dataType: "json"
+                }).done(function (rData) {
+                    alert("复位成功", "温馨提示", "关闭");
+                    $('.shopping').each(function () { $(this).attr('href', '/home/Products') });
+                    setTimeout("$('.mem-alert .inside-btn').click();", 1500);
+                }).fail(function () {
+                }).always(function () {
+                });
+                LS.set("inp_Rest", 0);
+            }
+        });
+        //先获取打饮品列表
+        var arg = window.external.Run("EtmEnvironment", "GetCurDrinks", "");
+        arg = arg.replace(/(&quot;)/g, "\"");        
+        var CurDrinks = JSON.parse(arg);        
+        if (CurDrinks && CurDrinks.length >= 1) {
+            var ord = {};
+            if (LS.getJson("Ord"))
+                ord = LS.getJson("Ord");
+            ord.SubmitMake = true;  
+            ord.DrinkList = $.grep(CurDrinks, function (value) {
+                return value.CurStatus != 2;
+            });
+            LS.setJson("Ord", ord);
+            location.href = '@Url.Action("ProductShow")';
+        }
+        //检测咖啡机
+        try {
+            //测试
+            //var machineStaus = true;
+            var machineStaus = window.external.Run("EtmEnvironment", "GetDrinkConnectStatus", "");            
+            if (machineStaus.toString().toLowerCase() != "true") {
+                alert("尊敬的用户，此机暂不支持咖啡饮品服务，给您带来的不便请谅解。", "", "", function () {
+                    GoHome();
+                });
+            }
+            //return;
+        }
+        catch (e) {
+            alert("尊敬的用户，此机暂不支持咖啡饮品服务，给您带来的不便请谅解。", "", "", function () {
+                GoHome();
+            });
+            //return;
+        }        
+    });
+</script>

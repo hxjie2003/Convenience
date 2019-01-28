@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ETMModel.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ETM_BIZ_AGENT_DEALER_DRIVER">
+          <Key>
+            <PropertyRef Name="DRIVER_ID" />
+          </Key>
+          <Property Name="DRIVER_ID" Type="varchar2" MaxLength="13" Nullable="false" />
+          <Property Name="DRIVER_TYPE" Type="number" Precision="38" Scale="0" />
+          <Property Name="AGENT_ID" Type="char" MaxLength="12" />
+          <Property Name="DEALER_ID" Type="char" MaxLength="12" />
+          <Property Name="PROPERTY_TYPE" Type="number" Precision="38" Scale="0" />
+          <Property Name="PROPERTY_DATE" Type="date" />
+          <Property Name="DRIVER_IP" Type="nvarchar2" MaxLength="64" />
+          <Property Name="DRIVER_CODE" Type="varchar2" MaxLength="32" />
+          <Property Name="ACTIVE_STATE" Type="number" Precision="1" Scale="0" />
+          <Property Name="ACTIVE_BY" Type="char" MaxLength="12" />
+          <Property Name="ACTIVE_DATE" Type="date" />
+          <Property Name="SETUP_BY" Type="nvarchar2" MaxLength="50" />
+          <Property Name="SETUP_DATE" Type="date" />
+          <Property Name="LAST_REPORT_DATE" Type="date" />
+          <Property Name="DRIVER_STATE" Type="number" Precision="38" Scale="0" />
+          <Property Name="ADDRESS_PROVINCE" Type="nvarchar2" MaxLength="50" />
+          <Property Name="ADDRESS_CITY" Type="nvarchar2" MaxLength="50" />
+          <Property Name="ADDRESS_AREA" Type="nvarchar2" MaxLength="50" />
+          <Property Name="ADDRESS_PATH" Type="varchar2" MaxLength="30" />
+          <Property Name="ADDRESS_LOCATION" Type="nvarchar2" MaxLength="100" />
+          <Property Name="ADDRESS_MAP_GIS" Type="varchar2" MaxLength="50" />
+          <Property Name="CIRCUMFERENCE_NOTE" Type="nvarchar2" MaxLength="300" />
+          <Property Name="REMARK" Type="nvarchar2" MaxLength="300" />
+          <Property Name="MEMBER_ID" Type="varchar2" MaxLength="32" />
+          <Property Name="LOCATION_ID" Type="varchar2" MaxLength="32" />
+          <Property Name="LONGITUDE" Type="number" Precision="10" Scale="6" />
+          <Property Name="LATITUDE" Type="number" Precision="10" Scale="6" />
+          <Property Name="CONTACT_MOBILE" Type="varchar2" MaxLength="25" />
+          <Property Name="STORE_NAME" Type="varchar2" MaxLength="32" />
+          <Property Name="CHANNEL_GROUP_ID" Type="varchar2" MaxLength="32" />
+          <Property Name="SERVICE_GROUP_ID" Type="varchar2" MaxLength="32" />
+        </EntityType>
+        <EntityContainer Name="ETMModelStoreContainer">
+          <EntitySet Name="ETM_BIZ_AGENT_DEALER_DRIVER" EntityType="Self.ETM_BIZ_AGENT_DEALER_DRIVER" Schema="ETM_BUSINESS" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ETMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ETM_BIZ_AGENT_DEALER_DRIVER">
+          <Key>
+            <PropertyRef Name="DRIVER_ID" />
+          </Key>
+          <Property Name="DRIVER_ID" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DRIVER_TYPE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="AGENT_ID" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
+          <Property Name="DEALER_ID" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
+          <Property Name="PROPERTY_TYPE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="PROPERTY_DATE" Type="DateTime" />
+          <Property Name="DRIVER_IP" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="DRIVER_CODE" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="ACTIVE_STATE" Type="Boolean" />
+          <Property Name="ACTIVE_BY" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
+          <Property Name="ACTIVE_DATE" Type="DateTime" />
+          <Property Name="SETUP_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SETUP_DATE" Type="DateTime" />
+          <Property Name="LAST_REPORT_DATE" Type="DateTime" />
+          <Property Name="DRIVER_STATE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ADDRESS_PROVINCE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ADDRESS_CITY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ADDRESS_AREA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ADDRESS_PATH" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS_LOCATION" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ADDRESS_MAP_GIS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CIRCUMFERENCE_NOTE" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="REMARK" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="MEMBER_ID" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="LOCATION_ID" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="LONGITUDE" Type="Decimal" Precision="10" Scale="6" />
+          <Property Name="LATITUDE" Type="Decimal" Precision="10" Scale="6" />
+          <Property Name="CONTACT_MOBILE" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="STORE_NAME" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="CHANNEL_GROUP_ID" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="SERVICE_GROUP_ID" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="ETMContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ETM_BIZ_AGENT_DEALER_DRIVER" EntityType="Self.ETM_BIZ_AGENT_DEALER_DRIVER" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ETMModelStoreContainer" CdmEntityContainer="ETMContext">
+          <EntitySetMapping Name="ETM_BIZ_AGENT_DEALER_DRIVER">
+            <EntityTypeMapping TypeName="ETMModel.ETM_BIZ_AGENT_DEALER_DRIVER">
+              <MappingFragment StoreEntitySet="ETM_BIZ_AGENT_DEALER_DRIVER">
+                <ScalarProperty Name="DRIVER_ID" ColumnName="DRIVER_ID" />
+                <ScalarProperty Name="DRIVER_TYPE" ColumnName="DRIVER_TYPE" />
+                <ScalarProperty Name="AGENT_ID" ColumnName="AGENT_ID" />
+                <ScalarProperty Name="DEALER_ID" ColumnName="DEALER_ID" />
+                <ScalarProperty Name="PROPERTY_TYPE" ColumnName="PROPERTY_TYPE" />
+                <ScalarProperty Name="PROPERTY_DATE" ColumnName="PROPERTY_DATE" />
+                <ScalarProperty Name="DRIVER_IP" ColumnName="DRIVER_IP" />
+                <ScalarProperty Name="DRIVER_CODE" ColumnName="DRIVER_CODE" />
+                <ScalarProperty Name="ACTIVE_STATE" ColumnName="ACTIVE_STATE" />
+                <ScalarProperty Name="ACTIVE_BY" ColumnName="ACTIVE_BY" />
+                <ScalarProperty Name="ACTIVE_DATE" ColumnName="ACTIVE_DATE" />
+                <ScalarProperty Name="SETUP_BY" ColumnName="SETUP_BY" />
+                <ScalarProperty Name="SETUP_DATE" ColumnName="SETUP_DATE" />
+                <ScalarProperty Name="LAST_REPORT_DATE" ColumnName="LAST_REPORT_DATE" />
+                <ScalarProperty Name="DRIVER_STATE" ColumnName="DRIVER_STATE" />
+                <ScalarProperty Name="ADDRESS_PROVINCE" ColumnName="ADDRESS_PROVINCE" />
+                <ScalarProperty Name="ADDRESS_CITY" ColumnName="ADDRESS_CITY" />
+                <ScalarProperty Name="ADDRESS_AREA" ColumnName="ADDRESS_AREA" />
+                <ScalarProperty Name="ADDRESS_PATH" ColumnName="ADDRESS_PATH" />
+                <ScalarProperty Name="ADDRESS_LOCATION" ColumnName="ADDRESS_LOCATION" />
+                <ScalarProperty Name="ADDRESS_MAP_GIS" ColumnName="ADDRESS_MAP_GIS" />
+                <ScalarProperty Name="CIRCUMFERENCE_NOTE" ColumnName="CIRCUMFERENCE_NOTE" />
+                <ScalarProperty Name="REMARK" ColumnName="REMARK" />
+                <ScalarProperty Name="MEMBER_ID" ColumnName="MEMBER_ID" />
+                <ScalarProperty Name="LOCATION_ID" ColumnName="LOCATION_ID" />
+                <ScalarProperty Name="LONGITUDE" ColumnName="LONGITUDE" />
+                <ScalarProperty Name="LATITUDE" ColumnName="LATITUDE" />
+                <ScalarProperty Name="CONTACT_MOBILE" ColumnName="CONTACT_MOBILE" />
+                <ScalarProperty Name="STORE_NAME" ColumnName="STORE_NAME" />
+                <ScalarProperty Name="CHANNEL_GROUP_ID" ColumnName="CHANNEL_GROUP_ID" />
+                <ScalarProperty Name="SERVICE_GROUP_ID" ColumnName="SERVICE_GROUP_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

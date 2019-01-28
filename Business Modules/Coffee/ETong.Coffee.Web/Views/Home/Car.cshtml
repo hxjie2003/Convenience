@@ -1,0 +1,347 @@
+﻿@{
+    var resourceSiteURL = System.Configuration.ConfigurationManager.AppSettings["ResDomain"];
+}
+
+<style>
+    .swiper-container {
+        width: 100%;
+        height: 435px;
+        margin-left: auto;
+        margin-right: auto;
+        overflow: hidden;
+    }
+
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        width: 100%;
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+</style>
+<div class="mainframe">
+    <form id="submitForm" action="" method="post">
+        <h1 class="inside-h1">咖啡饮品</h1>
+        <div class="inside-body fixed-height">
+            <div class="coffeetable_box">
+                <div class="tablehead">
+                    <table cellspacing="0" cellpadding="0" border="0" align="center" class="coffeeh_table">
+                        <tr>
+                            <td width="12%">种类</td>
+                            <td width="12%">糖分</td>
+                            <td width="12%">牛奶</td>
+                            <td width="12%">可可粉</td>
+                            <td width="12%">单价</td>
+                            <td width="16%">杯数</td>
+                            <td width="12%">金额</td>
+                            <td width="12%">操作</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="inbox">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper" id="tableData">
+                        </div>
+                    </div>
+                    <div class="bottom-btn"><img src="../images/ico-bottom.jpg"></div>
+                </div>
+            </div>
+            <input type="hidden" value="0" id="tobalNumber" />
+            <input type="hidden" value="0" id="tobalEtmCupNumber" />
+            <div class="total" id="total"></div>
+            <div class="new-btn-line center">
+                <button type="button" class="inside-btn back">上一步</button>
+                <button type="button" class="inside-btn btn-red btn-pay" id="btnSubmit">去支付</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    var global_order_id;
+    LS.setJson("Ord", null);
+    
+    $(function () {
+        if (!LS.getJson("Car")) {
+            location.href = '@Url.Action("Products")';
+        }
+        $.ajax({
+            url: '@Url.Action("Init")',
+            type: "post",
+            data: {},
+            dataType: "json"
+        }).done(function (initData) {
+            $('#tobalEtmCupNumber').val(initData.CupNumber);
+            //加载购物车数据
+            LoadCar(LS.getJson("Car"));
+        });
+        //上一步
+        $(".back").click(function () {
+            location.href = '@Url.Action("Products")';
+        });
+        //提交订单支付
+        $('.btn-pay').click(function () {
+
+            if (!LS.getJson("Car") || LS.getJson("Car").length<1) {
+                alert('请先选择饮品！');
+                return;
+            }
+
+            disableButton($(this));
+            showGlobLoading();
+            //初始化会员信息
+            var MemberId = "etong_common_user";    //会员信息 ID
+            var MemberName = "etong_anonymous";  //会员信息 Name
+            if (checkLogin(true)) {
+                if (typeof (etong.member.getMemberInfo()) !== "undefined") {
+                    var memberInfo = $.toJson(etong.member.getMemberInfo());
+                    MemberId = memberInfo.MemberID;
+                    MemberName = memberInfo.UserName;
+                }
+            }
+            //统计
+            var reqQuantity = 0;
+            var reqAmount = 0;
+            $.each(LS.getJson("Car"), function (index, item) {
+                //金额
+                reqAmount += item.Price * 100 * item.Number / 100;
+                reqQuantity += item.Number;
+            });
+            var reqData = {
+                OrderFrom: 1,
+                Quantity: reqQuantity,
+                TotalAmount: reqAmount + 0,
+                Fee: 0,
+                Amount: reqAmount,
+                DrinkList: LS.getJson("Car"),
+                MemberId: MemberId,
+                MemberName: MemberName
+            };
+            //console.log(reqData);
+            //提交
+            $.ajax({
+                url: '@Url.Action("OrderPost")',
+                type: "post",
+                data: reqData,
+                dataType: "json"
+            }).done(function (rData) {               
+                //console.log(rData);
+                //enableButton($("#btnSubmit"));
+                hiddenGlobLoading();
+                if (!$.isNull(rData.dataMap) && rData.dataMap.GroupId) {
+                    reqData.OrderId = rData.dataMap.GroupId;
+                    LS.setJson("req", reqData);
+                    //LS.setJson("Car", null);
+                    global_order_id = rData.dataMap.GroupId;
+                    //callbackTest();             //跳过支付测试回调
+                    window.external.RunAsyn("Pay", "StartPay", "{'OrderId': '" + rData.dataMap.GroupId + "', 'TransAmount': " + rData.dataMap.TotalAmount + ", 'Callback':'callback'}");
+                }
+                else {
+                    alert("抱歉了亲,由于服务器出现故障导致了本次订单提交失败,请尝试重新提交！");
+                }
+            }).fail(function () {
+                alert("抱歉了亲,由于服务器出现故障导致了本次订单提交失败,请尝试重新提交！");
+            }).always(function () {
+            });
+        });
+    })
+    //加载购物车数据
+    function LoadCar(Data) {
+        var phtml = [];
+        phtml.push('');
+        $.each(Data, function (index, item) {
+            phtml.push('<div class="swiper-slide">');
+            phtml.push('<table cellspacing="0" cellpadding="0" border="0" align="center" class="coffeec_table">');
+            phtml.push('<tr>');
+            phtml.push('<td width="12%">' + item.Name + '</td>');
+            phtml.push('<td width="12%">' + item.Materials[0].Weights[0].Name + '</td>');
+            phtml.push('<td width="12%">' + (item.Materials.length > 1 ? item.Materials[1].Weights[0].Name : '——') + '</td>');
+            phtml.push('<td width="12%">' + (item.Materials.length > 2 ? item.Materials[2].Weights[0].Name : '——') + '</td>');
+            phtml.push('<td width="12%">￥' + item.Price + '</td>');
+            phtml.push('<td width="16%" class="itemnum">');
+            phtml.push('<span class="pm plus" data="' + index + '">-</span>');
+            phtml.push('<input readonly="readonly"  class="cart_inpt" type="text" value="' + item.Number + '" autocomplete="off">');
+            phtml.push('<span class="pm minus" data="' + index + '">+</span>');
+            phtml.push('</td>');
+            phtml.push('<td width="12%">￥' + (item.Price * 100 * item.Number / 100) + '</td>');
+            phtml.push('<td width="12%"><button id="bntDel" class="inside-btn btn-red deleteuser" data="' + index + '">删除</button></td>');
+            phtml.push('</tr>');
+            phtml.push('</table>');
+            phtml.push('</div>');
+        });
+        phtml.push('');
+        $('#tableData').html(phtml.join(""));
+        //swiper
+        var swiper = new Swiper('.swiper-container', {
+            direction: 'vertical',
+            mousewheelControl: true,
+            nextButton: '.bottom-btn',
+            slidesPerView: 5
+        });
+        //减
+        $('.plus').click(function () {
+            var cur = $(this).attr('data');
+            var CarDrink = LS.getJson("Car");
+            if (Number(CarDrink[cur].Number) > 1) {
+                CarDrink[cur].Number -= 1;
+                LS.setJson("Car", CarDrink);
+                LoadCar(LS.getJson("Car"));
+            }
+        });
+        //加
+        $('.minus').click(function () {
+            var cur = $(this).attr('data');
+            var CarDrink = LS.getJson("Car");
+            if (Number($('#tobalNumber').val()) >= Number($('#tobalEtmCupNumber').val())) {
+                alert("抱歉，剩余杯数不足！");
+                return;
+            }
+            CarDrink[cur].Number += 1;
+            LS.setJson("Car", CarDrink);
+            LoadCar(LS.getJson("Car"));
+        });
+        //删除
+        $('.deleteuser').click(function () {
+            var cur = $(this).attr('data');
+            var CarDrink = LS.getJson("Car");
+            CarDrink.splice(cur, 1);
+            LS.setJson("Car", CarDrink);
+            LoadCar(LS.getJson("Car"));
+        });
+        //统计
+        TotalDrink(Data);
+    }
+    //统计
+    function TotalDrink(Data) {
+        var TobalAmount = 0;
+        var DrinkNumber = [];
+        var DrinkName = [];
+        var tobalNumber = 0;
+        $.each(Data, function (index, item) {
+            //金额
+            TobalAmount += item.Price * 100 * item.Number / 100;
+            tobalNumber += item.Number;
+            //数量
+            if (!DrinkNumber[item.Value])
+                DrinkNumber[item.Value] = 0;
+            DrinkNumber[item.Value] += item.Number;
+            DrinkName[item.Value] = item.Name;
+        });
+        var nhtml = [];
+        $.each(DrinkNumber, function (index, item) {
+            if (item && item > 0) {
+                nhtml.push('<span class="red" id="TotalNumber">' + item + '</span>杯');
+                nhtml.push(DrinkName[index] + ',');
+            }
+        });
+        $('#total').html('已选' + nhtml.join("") + '共计<span class="red" id="TobalAmount">' + TobalAmount + '</span>元');
+        $('#tobalNumber').val(tobalNumber);
+    }
+    //支付回调
+    function callback(arg) {
+        arg = arg.replace(/(&quot;)/g, "\"");
+        var payResult = JSON.parse(arg);
+        if (!LS.getJson("req")) {
+            alert("抱歉了亲,由于服务器出现故障导致了本次订单支付失败,请尝试重新尝试！");
+            return false;
+        }
+        //支付成功
+        if (payResult.Success) {
+            //标记发货
+            $.ajax({
+                url: '@Url.Action("PayCallback")',
+                type: "post",
+                data: { groupId: LS.getJson("req").OrderId },
+                dataType: "json"
+            }).done(function (rData) {
+                //减去库存量
+                $.ajax({
+                    url: '@Url.Action("LostCoffee")',
+                    type: "post",
+                    data: { CupNumber: Number(LS.getJson("req").Quantity) },
+                    dataType: "json"
+                }).done(function (rData) {
+                    var OrdDrink = [];
+                    //拆分列表
+                    $.each(LS.getJson("req").DrinkList, function (index, item) {
+                        for (var i = 0; i < item.Number; i++)
+                            OrdDrink.push(item);
+                    });
+                    //重置数量
+                    $.each(OrdDrink, function (index, item) { item.Number = 1 });
+                    var Ord = {
+                        OrderId: LS.getJson("req").OrderId,
+                        DrinkList: OrdDrink
+                    };
+                    LS.setJson("Ord", Ord);
+                    LS.setJson("req", null);
+                    LS.setJson("Car", null);
+                    location.href = '@Url.Action("ProductShow")';
+                }).fail(function () {
+                }).always(function () {
+                });
+            }).fail(function () {
+            }).always(function () {
+            });
+        }
+        else {
+            enableButton($("#btnSubmit"));
+            hiddenGlobLoading();
+        }
+    }
+    //测试回调
+    @*function callbackTest()
+    {        
+        //减去库存量
+        $.ajax({
+            url: '@Url.Action("LostCoffee")',
+            type: "post",
+            data: { CupNumber: Number(LS.getJson("req").Quantity) },
+            dataType: "json"
+        }).done(function (rData) {
+            var OrdDrink = [];
+            //拆分列表
+            $.each(LS.getJson("req").DrinkList, function (index, item) {
+                for (var i = 0; i < item.Number; i++)
+                    OrdDrink.push(item);
+            });
+            //重置数量
+            $.each(OrdDrink, function (index, item) { item.Number = 1 });
+            var Ord = {
+                OrderId: LS.getJson("req").OrderId,
+                DrinkList: OrdDrink
+            };
+            LS.setJson("Ord", Ord);
+            LS.setJson("req", null);
+            location.href = '@Url.Action("ProductShow")';
+        }).fail(function () {
+        }).always(function () {
+        });        
+    }*@
+    //登录检测
+    function checkLogin(withoutLogin) {
+        var state = false;
+        try {
+            if (withoutLogin) {
+                state = window.external.run("Member", "IsLogin", "").toLowerCase() == "true"; //window.external.IsLogin();
+            }
+            else {
+                var userInfo = window.external.run("Member", "GetMemberInfo", "");
+                state = userInfo != null;
+            }
+        } catch (ex) { }
+        return state;
+    }
+</script>

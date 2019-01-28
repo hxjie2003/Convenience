@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CoffeeModel.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BM_COFFEE_DETAIL">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar2" MaxLength="32" Nullable="false" />
+          <Property Name="ORDER_ID" Type="varchar2" MaxLength="32" Nullable="false" />
+          <Property Name="COFFEE_TYPE" Type="varchar2" MaxLength="32" />
+          <Property Name="PRICE" Type="number" Precision="10" Scale="2" />
+          <Property Name="QUANTITY" Type="number" Precision="10" Scale="0" />
+          <Property Name="AMOUNT" Type="number" Precision="10" Scale="2" />
+          <Property Name="ADD_FEE" Type="number" Precision="10" Scale="2" />
+          <Property Name="TOTAL" Type="number" Precision="10" Scale="2" />
+          <Property Name="DESCRIPTION" Type="varchar2" MaxLength="1000" />
+          <Property Name="CREATE_DATE" Type="date" />
+          <Property Name="RUN_STATUS" Type="number" Precision="10" Scale="0" />
+          <Property Name="COFFEE_TYPENAME" Type="varchar2" MaxLength="32" />
+          <Property Name="CAPACITY" Type="number" Precision="10" Scale="2" />
+          <Property Name="MATERIALS" Type="varchar2" MaxLength="1000" />
+          <Property Name="ISSUED" Type="number" Precision="10" Scale="0" />
+        </EntityType>
+        <EntityType Name="PUB_ORDER">
+          <Key>
+            <PropertyRef Name="ORDER_ID" />
+          </Key>
+          <Property Name="ORDER_ID" Type="varchar2" MaxLength="32" Nullable="false" />
+          <Property Name="IS_DELETE" Type="number" Precision="1" Scale="0" Nullable="false" />
+          <Property Name="IS_CREDIT" Type="number" Precision="1" Scale="0" />
+          <Property Name="ORDER_STATUS" Type="number" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="ORDER_SUB_STATUS" Type="number" Precision="2" Scale="0" />
+          <Property Name="ORDER_FROM" Type="number" Scale="0" Nullable="false" />
+          <Property Name="ORDER_TYPE" Type="number" Scale="0" Nullable="false" />
+          <Property Name="ORDER_CLASSIFY" Type="number" Precision="1" Scale="0" Nullable="false" />
+          <Property Name="TOTAL_AMOUNT" Type="number" Precision="16" Scale="2" Nullable="false" />
+          <Property Name="PAYMENT_STATUS" Type="number" Scale="0" Nullable="false" />
+          <Property Name="PAYMENT_DATE" Type="date" />
+          <Property Name="PAY_ETM" Type="varchar2" MaxLength="20" />
+          <Property Name="ORDER_ETM" Type="varchar2" MaxLength="20" />
+          <Property Name="MEMBER_ID" Type="varchar2" MaxLength="32" />
+          <Property Name="MEMBER_NAME" Type="nvarchar2" MaxLength="50" />
+          <Property Name="CREATOR_IP" Type="varchar2" MaxLength="64" />
+          <Property Name="STORE_ID" Type="varchar2" MaxLength="32" Nullable="false" />
+          <Property Name="STORE_NAME" Type="varchar2" MaxLength="500" />
+          <Property Name="IMG_URL" Type="varchar2" MaxLength="200" />
+          <Property Name="GOODS_URL" Type="varchar2" MaxLength="500" />
+          <Property Name="PRODUCT_DESC" Type="varchar2" MaxLength="4000" />
+          <Property Name="ALLOCATION_STATUS" Type="number" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="ORDER_AMOUNT" Type="number" Precision="16" Scale="2" />
+          <Property Name="DELIVERY_FEE" Type="number" Precision="16" Scale="2" />
+          <Property Name="CREATE_DATE" Type="date" Nullable="false" />
+          <Property Name="MODIFY_DATE" Type="date" Nullable="false" />
+          <Property Name="INST_ID" Type="char" MaxLength="2" />
+          <Property Name="PAYMENT_BATCH_NO" Type="varchar2" MaxLength="32" />
+          <Property Name="PAYMENT_TYPE" Type="number" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="PAYMENT_ORDER_ID" Type="varchar2" MaxLength="32" />
+          <Property Name="PAYMENT_ACCOUNT_ID" Type="varchar2" MaxLength="32" />
+          <Property Name="MESSAGE" Type="varchar2" MaxLength="100" />
+          <Property Name="STORE_TEL" Type="varchar2" MaxLength="20" />
+          <Property Name="DETIAL_JSON_TEXT" Type="clob" />
+          <Property Name="PROVIDER_ID" Type="varchar2" MaxLength="50" />
+          <Property Name="ORDER_DESC" Type="varchar2" MaxLength="1000" />
+          <Property Name="RATE_ID" Type="varchar2" MaxLength="32" />
+          <Property Name="ORDER_FINISH_DATE" Type="date" />
+          <Property Name="FREIGHT_TEMPLATE_ID" Type="varchar2" MaxLength="32" />
+          <Property Name="FREIGHT_TYPE_ID" Type="varchar2" MaxLength="32" />
+          <Property Name="FREIGHT_TYPE_NAME" Type="varchar2" MaxLength="255" />
+          <Property Name="ORDER_PROPERTIES" Type="varchar2" MaxLength="2000" />
+        </EntityType>
+        <EntityContainer Name="CoffeeModelStoreContainer">
+          <EntitySet Name="BM_COFFEE_DETAIL" EntityType="Self.BM_COFFEE_DETAIL" Schema="ET_ORDERS_V3" store:Type="Tables" />
+          <EntitySet Name="PUB_ORDER" EntityType="Self.PUB_ORDER" Schema="ET_ORDERS_V3" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CoffeeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BM_COFFEE_DETAIL">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ORDER_ID" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="COFFEE_TYPE" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="PRICE" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="QUANTITY" Type="Int32" />
+          <Property Name="AMOUNT" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="ADD_FEE" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="TOTAL" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="CREATE_DATE" Type="DateTime" />
+          <Property Name="RUN_STATUS" Type="Int32" />
+          <Property Name="COFFEE_TYPENAME" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="CAPACITY" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="MATERIALS" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="ISSUED" Type="Int32" />
+        </EntityType>
+        <EntityType Name="PUB_ORDER">
+          <Key>
+            <PropertyRef Name="ORDER_ID" />
+          </Key>
+          <Property Name="ORDER_ID" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IS_DELETE" Type="Boolean" Nullable="false" />
+          <Property Name="IS_CREDIT" Type="Boolean" />
+          <Property Name="ORDER_STATUS" Type="Byte" Nullable="false" />
+          <Property Name="ORDER_SUB_STATUS" Type="Byte" />
+          <Property Name="ORDER_FROM" Type="Int32" Nullable="false" />
+          <Property Name="ORDER_TYPE" Type="Int32" Nullable="false" />
+          <Property Name="ORDER_CLASSIFY" Type="Boolean" Nullable="false" />
+          <Property Name="TOTAL_AMOUNT" Type="Decimal" Precision="16" Scale="2" Nullable="false" />
+          <Property Name="PAYMENT_STATUS" Type="Int32" Nullable="false" />
+          <Property Name="PAYMENT_DATE" Type="DateTime" />
+          <Property Name="PAY_ETM" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ORDER_ETM" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MEMBER_ID" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="MEMBER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CREATOR_IP" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="STORE_ID" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="STORE_NAME" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IMG_URL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="GOODS_URL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="PRODUCT_DESC" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="ALLOCATION_STATUS" Type="Byte" Nullable="false" />
+          <Property Name="ORDER_AMOUNT" Type="Decimal" Precision="16" Scale="2" />
+          <Property Name="DELIVERY_FEE" Type="Decimal" Precision="16" Scale="2" />
+          <Property Name="CREATE_DATE" Type="DateTime" Nullable="false" />
+          <Property Name="MODIFY_DATE" Type="DateTime" Nullable="false" />
+          <Property Name="INST_ID" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="PAYMENT_BATCH_NO" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="PAYMENT_TYPE" Type="Byte" Nullable="false" />
+          <Property Name="PAYMENT_ORDER_ID" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="PAYMENT_ACCOUNT_ID" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="MESSAGE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="STORE_TEL" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DETIAL_JSON_TEXT" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PROVIDER_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ORDER_DESC" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="RATE_ID" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="ORDER_FINISH_DATE" Type="DateTime" />
+          <Property Name="FREIGHT_TEMPLATE_ID" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="FREIGHT_TYPE_ID" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="FREIGHT_TYPE_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ORDER_PROPERTIES" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="CoffeeOrderContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BM_COFFEE_DETAIL" EntityType="Self.BM_COFFEE_DETAIL" />
+          <EntitySet Name="PUB_ORDER" EntityType="Self.PUB_ORDER" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CoffeeModelStoreContainer" CdmEntityContainer="CoffeeOrderContext">
+          <EntitySetMapping Name="BM_COFFEE_DETAIL">
+            <EntityTypeMapping TypeName="CoffeeModel.BM_COFFEE_DETAIL">
+              <MappingFragment StoreEntitySet="BM_COFFEE_DETAIL">
+                <ScalarProperty Name="ISSUED" ColumnName="ISSUED" />
+                <ScalarProperty Name="MATERIALS" ColumnName="MATERIALS" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ORDER_ID" ColumnName="ORDER_ID" />
+                <ScalarProperty Name="COFFEE_TYPE" ColumnName="COFFEE_TYPE" />
+                <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+                <ScalarProperty Name="QUANTITY" ColumnName="QUANTITY" />
+                <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
+                <ScalarProperty Name="ADD_FEE" ColumnName="ADD_FEE" />
+                <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="CREATE_DATE" ColumnName="CREATE_DATE" />
+                <ScalarProperty Name="RUN_STATUS" ColumnName="RUN_STATUS" />
+                <ScalarProperty Name="COFFEE_TYPENAME" ColumnName="COFFEE_TYPENAME" />
+                <ScalarProperty Name="CAPACITY" ColumnName="CAPACITY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PUB_ORDER">
+            <EntityTypeMapping TypeName="CoffeeModel.PUB_ORDER">
+              <MappingFragment StoreEntitySet="PUB_ORDER">
+                <ScalarProperty Name="ORDER_ID" ColumnName="ORDER_ID" />
+                <ScalarProperty Name="IS_DELETE" ColumnName="IS_DELETE" />
+                <ScalarProperty Name="IS_CREDIT" ColumnName="IS_CREDIT" />
+                <ScalarProperty Name="ORDER_STATUS" ColumnName="ORDER_STATUS" />
+                <ScalarProperty Name="ORDER_SUB_STATUS" ColumnName="ORDER_SUB_STATUS" />
+                <ScalarProperty Name="ORDER_FROM" ColumnName="ORDER_FROM" />
+                <ScalarProperty Name="ORDER_TYPE" ColumnName="ORDER_TYPE" />
+                <ScalarProperty Name="ORDER_CLASSIFY" ColumnName="ORDER_CLASSIFY" />
+                <ScalarProperty Name="TOTAL_AMOUNT" ColumnName="TOTAL_AMOUNT" />
+                <ScalarProperty Name="PAYMENT_STATUS" ColumnName="PAYMENT_STATUS" />
+                <ScalarProperty Name="PAYMENT_DATE" ColumnName="PAYMENT_DATE" />
+                <ScalarProperty Name="PAY_ETM" ColumnName="PAY_ETM" />
+                <ScalarProperty Name="ORDER_ETM" ColumnName="ORDER_ETM" />
+                <ScalarProperty Name="MEMBER_ID" ColumnName="MEMBER_ID" />
+                <ScalarProperty Name="MEMBER_NAME" ColumnName="MEMBER_NAME" />
+                <ScalarProperty Name="CREATOR_IP" ColumnName="CREATOR_IP" />
+                <ScalarProperty Name="STORE_ID" ColumnName="STORE_ID" />
+                <ScalarProperty Name="STORE_NAME" ColumnName="STORE_NAME" />
+                <ScalarProperty Name="IMG_URL" ColumnName="IMG_URL" />
+                <ScalarProperty Name="GOODS_URL" ColumnName="GOODS_URL" />
+                <ScalarProperty Name="PRODUCT_DESC" ColumnName="PRODUCT_DESC" />
+                <ScalarProperty Name="ALLOCATION_STATUS" ColumnName="ALLOCATION_STATUS" />
+                <ScalarProperty Name="ORDER_AMOUNT" ColumnName="ORDER_AMOUNT" />
+                <ScalarProperty Name="DELIVERY_FEE" ColumnName="DELIVERY_FEE" />
+                <ScalarProperty Name="CREATE_DATE" ColumnName="CREATE_DATE" />
+                <ScalarProperty Name="MODIFY_DATE" ColumnName="MODIFY_DATE" />
+                <ScalarProperty Name="INST_ID" ColumnName="INST_ID" />
+                <ScalarProperty Name="PAYMENT_BATCH_NO" ColumnName="PAYMENT_BATCH_NO" />
+                <ScalarProperty Name="PAYMENT_TYPE" ColumnName="PAYMENT_TYPE" />
+                <ScalarProperty Name="PAYMENT_ORDER_ID" ColumnName="PAYMENT_ORDER_ID" />
+                <ScalarProperty Name="PAYMENT_ACCOUNT_ID" ColumnName="PAYMENT_ACCOUNT_ID" />
+                <ScalarProperty Name="MESSAGE" ColumnName="MESSAGE" />
+                <ScalarProperty Name="STORE_TEL" ColumnName="STORE_TEL" />
+                <ScalarProperty Name="DETIAL_JSON_TEXT" ColumnName="DETIAL_JSON_TEXT" />
+                <ScalarProperty Name="PROVIDER_ID" ColumnName="PROVIDER_ID" />
+                <ScalarProperty Name="ORDER_DESC" ColumnName="ORDER_DESC" />
+                <ScalarProperty Name="RATE_ID" ColumnName="RATE_ID" />
+                <ScalarProperty Name="ORDER_FINISH_DATE" ColumnName="ORDER_FINISH_DATE" />
+                <ScalarProperty Name="FREIGHT_TEMPLATE_ID" ColumnName="FREIGHT_TEMPLATE_ID" />
+                <ScalarProperty Name="FREIGHT_TYPE_ID" ColumnName="FREIGHT_TYPE_ID" />
+                <ScalarProperty Name="FREIGHT_TYPE_NAME" ColumnName="FREIGHT_TYPE_NAME" />
+                <ScalarProperty Name="ORDER_PROPERTIES" ColumnName="ORDER_PROPERTIES" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

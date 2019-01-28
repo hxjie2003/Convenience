@@ -1,0 +1,10 @@
+﻿<Window x:Class="ETong.Maintenance.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Button Content="服务端异步，客户端同步" HorizontalAlignment="Left" Margin="154,64,0,0" VerticalAlignment="Top" Width="260" Click="Button_Click" Height="80"/>
+        <Button Content="利用关键字Async" HorizontalAlignment="Left" Margin="154,170,0,0" VerticalAlignment="Top" Width="260" Height="79" Click="Button_Click_1"/>
+
+    </Grid>
+</Window>

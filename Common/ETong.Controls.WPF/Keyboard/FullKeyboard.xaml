@@ -1,0 +1,323 @@
+﻿<UserControl x:Class="ETong.Controls.WPF.FullKeyboard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:toolKitEx="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit.Extended"
+             xmlns:kb="clr-namespace:ETong.ETM.Controls.Keyboard;assembly=ETong.ETM.Controls.Keyboard" 
+             xmlns:wp="clr-namespace:ETong.ETM.Controls.WrittingPad;assembly=ETong.ETM.Controls.WrittingPad"
+             FontFamily="/ETong.ETM.WPF.Resources;component/FontFamily/msyh.ttc#微软雅黑"
+             d:DesignWidth="1680" d:DesignHeight="400">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/ETong.Controls.WPF;component/Themes/Keyboard_Style.xaml"/>
+    </UserControl.Resources>
+    <Grid Height="400" Background="#4a4949">
+        <Grid x:Name="KeyboardPanel">
+            <Grid>
+                <Border BorderThickness="0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid HorizontalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10">
+                                <Grid x:Name="FullKeyboardPanel" Width="770" HorizontalAlignment="Center" Visibility="Visible">
+                                    <kb:EditorKeyboardControl x:Name="letterpad" Width="770" Height="400" Style="{DynamicResource FullKeyboardStyle}" />
+                                    <Button Content="符号"
+                                        HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5,0,0,77"
+                                            Click="SymbolKey_Click">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource keyboardButtonStyle}" >
+                                                <Setter Property="Width" Value="105"/>
+                                                <Setter Property="Height" Value="67"/>
+                                                <Setter Property="Margin" Value="5"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type Button}">
+                                                            <Grid>
+                                                                <Image Name="ImgBtn" Source="/ETong.Controls.WPF;component/images/keyboard/symbol_key.png" Stretch="Fill"/>
+                                                                <ContentControl x:Name="Content" Content="{TemplateBinding Content}" 
+                                                                FontSize="{TemplateBinding FontSize}" Foreground="{TemplateBinding Foreground}"
+                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                                                            </Grid>
+                                                            <ControlTemplate.Triggers>
+                                                                <Trigger Property="IsPressed" Value="True">
+                                                                    <Setter Property="Source" Value="/ETong.Controls.WPF;component/images/keyboard/symbol_key_press.png" TargetName="ImgBtn"/>
+                                                                    <Setter Property="Foreground" Value="White" TargetName="Content"/>
+                                                                </Trigger>
+                                                            </ControlTemplate.Triggers>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                    <Button Content="数字"
+                                        HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5,0,0,0"
+                                        Click="NumberKey_Click">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource keyboardButtonStyle}" >
+                                                <Setter Property="Width" Value="182"/>
+                                                <Setter Property="Height" Value="67"/>
+                                                <Setter Property="Margin" Value="5"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type Button}">
+                                                            <Grid>
+                                                                <Image Name="ImgBtn" Source="/ETong.Controls.WPF;component/images/keyboard/back_key.png" Stretch="Fill"/>
+                                                                <ContentControl x:Name="Content" Content="{TemplateBinding Content}" 
+                                                                FontSize="{TemplateBinding FontSize}" Foreground="{TemplateBinding Foreground}"
+                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                                                            </Grid>
+                                                            <ControlTemplate.Triggers>
+                                                                <Trigger Property="IsPressed" Value="True">
+                                                                    <Setter Property="Source" Value="/ETong.Controls.WPF;component/images/keyboard/symbol_key_press.png" TargetName="ImgBtn"/>
+                                                                    <Setter Property="Foreground" Value="White" TargetName="Content"/>
+                                                                </Trigger>
+                                                            </ControlTemplate.Triggers>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                </Grid>
+                                <Grid x:Name="NumberKeyboardPanel" Width="770" HorizontalAlignment="Center" Visibility="Collapsed">
+                                    <kb:EditorKeyboardControl x:Name="numberpad" Width="770" Height="400" Style="{DynamicResource NumberKeyboardStyle}" />
+                                    <Button Content="符号"
+                                        HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30,0,0,100"
+                                        Click="SymbolKey_Click">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource keyboardButtonStyle}" >
+                                                <Setter Property="Width" Value="170"/>
+                                                <Setter Property="Height" Value="85"/>
+                                                <Setter Property="Margin" Value="5"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type Button}">
+                                                            <Grid>
+                                                                <Image Name="ImgBtn" Source="/ETong.Controls.WPF;component/images/keyboard/num_key2.png" Stretch="Fill"/>
+                                                                <ContentControl x:Name="Content" Content="{TemplateBinding Content}" 
+                                                                FontSize="{TemplateBinding FontSize}" Foreground="{TemplateBinding Foreground}"
+                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                                                            </Grid>
+                                                            <ControlTemplate.Triggers>
+                                                                <Trigger Property="IsPressed" Value="True">
+                                                                    <Setter Property="Source" Value="/ETong.Controls.WPF;component/images/keyboard/num_key_press.png" TargetName="ImgBtn"/>
+                                                                    <Setter Property="Foreground" Value="White" TargetName="Content"/>
+                                                                </Trigger>
+                                                            </ControlTemplate.Triggers>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                    <Button Content="全键盘"
+                                        HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30,0,0,5"
+                                        Click="FullKey_Click">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource keyboardButtonStyle}" >
+                                                <Setter Property="Width" Value="170"/>
+                                                <Setter Property="Height" Value="85"/>
+                                                <Setter Property="Margin" Value="5"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type Button}">
+                                                            <Grid>
+                                                                <Image Name="ImgBtn" Source="/ETong.Controls.WPF;component/images/keyboard/num_key2.png" Stretch="Fill"/>
+                                                                <ContentControl x:Name="Content" Content="{TemplateBinding Content}" 
+                                                                FontSize="{TemplateBinding FontSize}" Foreground="{TemplateBinding Foreground}"
+                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                                                            </Grid>
+                                                            <ControlTemplate.Triggers>
+                                                                <Trigger Property="IsPressed" Value="True">
+                                                                    <Setter Property="Source" Value="/ETong.Controls.WPF;component/images/keyboard/num_key_press.png" TargetName="ImgBtn"/>
+                                                                    <Setter Property="Foreground" Value="White" TargetName="Content"/>
+                                                                </Trigger>
+                                                            </ControlTemplate.Triggers>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                </Grid>
+                                <Grid x:Name="SymbolKeyboardPanel" Width="770" HorizontalAlignment="Center" Visibility="Collapsed">
+                                    <kb:EditorKeyboardControl x:Name="symbolberpad" Width="770" Height="400" Style="{DynamicResource SymbolKeyboardStyle}" />
+                                    <Button Content="数字"
+                                        HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30,0,0,100"
+                                        Click="NumberKey_Click">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource keyboardButtonStyle}" >
+                                                <Setter Property="Width" Value="170"/>
+                                                <Setter Property="Height" Value="85"/>
+                                                <Setter Property="Margin" Value="5"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type Button}">
+                                                            <Grid>
+                                                                <Image Name="ImgBtn" Source="/ETong.Controls.WPF;component/images/keyboard/num_key2.png" Stretch="Fill"/>
+                                                                <ContentControl x:Name="Content" Content="{TemplateBinding Content}" 
+                                                                FontSize="{TemplateBinding FontSize}" Foreground="{TemplateBinding Foreground}"
+                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                                                            </Grid>
+                                                            <ControlTemplate.Triggers>
+                                                                <Trigger Property="IsPressed" Value="True">
+                                                                    <Setter Property="Source" Value="/ETong.Controls.WPF;component/images/keyboard/num_key_press.png" TargetName="ImgBtn"/>
+                                                                    <Setter Property="Foreground" Value="White" TargetName="Content"/>
+                                                                </Trigger>
+                                                            </ControlTemplate.Triggers>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                    <Button Content="全键盘"
+                                        HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30,0,0,5"
+                                        Click="FullKey_Click">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource keyboardButtonStyle}" >
+                                                <Setter Property="Width" Value="170"/>
+                                                <Setter Property="Height" Value="85"/>
+                                                <Setter Property="Margin" Value="5"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type Button}">
+                                                            <Grid>
+                                                                <Image Name="ImgBtn" Source="/ETong.Controls.WPF;component/images/keyboard/num_key2.png" Stretch="Fill"/>
+                                                                <ContentControl x:Name="Content" Content="{TemplateBinding Content}" 
+                                                                FontSize="{TemplateBinding FontSize}" Foreground="{TemplateBinding Foreground}"
+                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                                                            </Grid>
+                                                            <ControlTemplate.Triggers>
+                                                                <Trigger Property="IsPressed" Value="True">
+                                                                    <Setter Property="Source" Value="/ETong.Controls.WPF;component/images/keyboard/num_key_press.png" TargetName="ImgBtn"/>
+                                                                    <Setter Property="Foreground" Value="White" TargetName="Content"/>
+                                                                </Trigger>
+                                                            </ControlTemplate.Triggers>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                            <Grid Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10">
+                                <StackPanel>
+                                    <Grid Width="728" Height="67" Margin="15,5,0,10" HorizontalAlignment="Left">
+                                        <Image Source="/ETong.Controls.WPF;component/images/keyboard/text.png" Stretch="Fill" Width="612" HorizontalAlignment="Left"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock x:Name="displayValueTitle" Margin="10,0" FontSize="24" Foreground="DarkGray" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                                            <TextBlock Text="预览数据" 
+                                               x:Name="displayValueTextBox"
+                                               FontSize="24"
+                                               Foreground="Black"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                        <Button x:Name="BtnPinyin" Content="拼音" Click="BtnPinyin_Click">
+                                            <Button.Style>
+                                                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource keyboardButtonStyle}" >
+                                                    <Setter Property="Width" Value="105"/>
+                                                    <Setter Property="Height" Value="67"/>
+                                                    <Setter Property="Margin" Value="0"/>
+                                                    <Setter Property="Foreground" Value="White"/>
+                                                    <Setter Property="HorizontalAlignment" Value="Right" />
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                                <Grid>
+                                                                    <Image Name="ImgBtn" Source="/ETong.Controls.WPF;component/images/keyboard/symbol_key.png" Stretch="Fill"/>
+                                                                    <ContentControl x:Name="Content" Content="{TemplateBinding Content}" 
+                                                                FontSize="{TemplateBinding FontSize}" Foreground="{TemplateBinding Foreground}"
+                                                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                                                                </Grid>
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsPressed" Value="True">
+                                                                        <Setter Property="Source" Value="/ETong.Controls.WPF;component/images/keyboard/symbol_key_press.png" TargetName="ImgBtn"/>
+                                                                        <Setter Property="Foreground" Value="White" TargetName="Content"/>
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </Button.Style>
+                                        </Button>
+                                    </Grid>
+                                    <kb:EditorKeyboardControl x:Name="writerpad" 
+                                                          Margin="10,0,0,0"
+                                                          Width="740" Height="400" Style="{DynamicResource WriterPadKeyboardStyle}" />
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Button x:Name="btnCloseKeyboard" Grid.Row="1"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Top"
+                                                Click="btnCloseKeyboard_Click">
+                                <Button.Content>
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock Text="关"/>
+                                        <TextBlock Text="闭"/>
+                                    </StackPanel>
+                                </Button.Content>
+                                <Button.Style>
+                                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                        <Setter Property="Foreground" Value="White"/>
+                                        <Setter Property="FontSize" Value="26"/>
+                                        <Setter Property="FontWeight" Value="Normal"/>
+                                        <Setter Property="Width" Value="74"/>
+                                        <Setter Property="Height" Value="400"/>
+                                        <Setter Property="Margin" Value="0"/>
+                                        <Setter Property="Focusable" Value="False"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Grid>
+                                                        <Image Name="ImgBtn" Source="/ETong.Controls.WPF;component/images/keyboard/close.png" Stretch="Fill"/>
+                                                        <ContentControl Content="{TemplateBinding Content}" 
+                                                                        FontSize="{TemplateBinding FontSize}" Foreground="{TemplateBinding Foreground}"
+                                                                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                                                    </Grid>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsPressed" Value="True">
+                                                            <Setter Property="Source" Value="/ETong.Controls.WPF;component/images/keyboard/close_press.png" TargetName="ImgBtn"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>
